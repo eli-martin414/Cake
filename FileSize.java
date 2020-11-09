@@ -1,4 +1,7 @@
 import java.io.File;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
 public class FileSize
@@ -18,8 +21,22 @@ public class FileSize
 		long size = 0;
 		// if file -> get size
 		// if directory -> get all of the files
-		// 
+		// process all of the files and dirs
+		if (file.isDirectory())
+		{
+			File[] files = file.listFiles();
+			// for every of these files, call getSize
+			List<File> xFiles = new LinkedList<>(Arrays.asList(files));
+			for (File f: xFiles)
+			{
+				size += getSize(f);
+			}
+		}
 		
+		else
+		{
+			size += file.length();
+		}
 		
 		return size;
 	}
